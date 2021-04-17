@@ -1,0 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS `warehousedb`;
+
+CREATE TABLE IF NOT EXISTS `Client` (`id` INT AUTO_INCREMENT, `name` VARCHAR(64), `address` VARCHAR(64), `email` VARCHAR(32), `age` INT, PRIMARY KEY(`id`));
+CREATE TABLE IF NOT EXISTS `Product` (`id` INT AUTO_INCREMENT, `name` VARCHAR(64), `price` FLOAT, PRIMARY KEY(`id`));
+CREATE TABLE IF NOT EXISTS `Order` (`id` INT AUTO_INCREMENT, `clientId` INT, `productId` INT, `quantity` INT, PRIMARY KEY(`id`));
