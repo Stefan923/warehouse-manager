@@ -3,10 +3,11 @@ package me.stefan923.ordermanager.model;
 public class Order {
 
     private final int id;
+    private int clientId;
     private int productId;
     private int quantity;
 
-    public Order(int id, int productId, int quantity) {
+    public Order(int id, int clientId, int productId, int quantity) {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
@@ -14,6 +15,14 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public int getProductId() {
