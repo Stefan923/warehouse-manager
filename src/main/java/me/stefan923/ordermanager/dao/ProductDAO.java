@@ -2,4 +2,10 @@ package me.stefan923.ordermanager.dao;
 
 import me.stefan923.ordermanager.model.Product;
 
-public class ProductDAO extends AbstractDAO<Product> { }
+public class ProductDAO extends AbstractDAO<Product> {
+
+    public ProductDAO() {
+        super(Product.class);
+    }
+
+}

@@ -19,12 +19,12 @@ public abstract class AbstractDAO<T> {
 
      private final Class<T> type;
 
-     public AbstractDAO() {
-          this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+     public AbstractDAO(Class<T> type) {
+          this.type = type;
      }
 
      public List<T> findAll() {
-          String query = SQLStatemets.SELECT_ALL.replace("%table%", type.toString());
+          String query = SQLStatemets.SELECT_ALL.replace("%table%", type.getSimpleName());
 
           ResultSet resultSet = null;
           try (Connection connection = ConnectionFactory.getConnection();
@@ -46,7 +46,7 @@ public abstract class AbstractDAO<T> {
 
      public Optional<T> findById(int id) {
           String query = SQLStatemets.SELECT_BY_FIELD
-                  .replace("%table%", type.toString())
+                  .replace("%table%", type.getSimpleName())
                   .replace("%field%", "id");
 
           ResultSet resultSet = null;
@@ -58,7 +58,7 @@ public abstract class AbstractDAO<T> {
 
                return Optional.of(createObjects(resultSet).get(0));
           } catch (SQLException e) {
-               LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+               LOGGER.log(Level.WARNING, type.getSimpleName() + "DAO:findById " + e.getMessage());
           } finally {
                if (resultSet != null) {
                     ConnectionFactory.close(resultSet);
@@ -70,7 +70,7 @@ public abstract class AbstractDAO<T> {
 
      public T insert(T t) {
           String query = SQLStatemets.INSERT
-                  .replace("%table%", type.toString())
+                  .replace("%table%", type.getSimpleName())
                   .replace("%fields%", getFieldsAsString(t))
                   .replace("%field_values%", getFieldValuesAsString(t));
 
@@ -87,7 +87,7 @@ public abstract class AbstractDAO<T> {
 
      public T update(T t) {
           String query = SQLStatemets.UPDATE_BY_FIELD
-                  .replace("%table%", type.toString())
+                  .replace("%table%", type.getSimpleName())
                   .replace("%fields%", getFieldsAndTheirValuesAsString(t, "id"))
                   .replace("%field%", "id");
 
@@ -105,6 +105,7 @@ public abstract class AbstractDAO<T> {
 
      public boolean delete(int id) {
           String query = SQLStatemets.DELETE_BY_FIELD
+                  .replace("%table%", type.getSimpleName())
                   .replace("%field%", "id");
 
           try ( Connection connection = ConnectionFactory.getConnection();
