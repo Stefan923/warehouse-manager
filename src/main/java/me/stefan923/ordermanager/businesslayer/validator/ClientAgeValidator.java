@@ -8,7 +8,11 @@ public class ClientAgeValidator implements Validator<Client> {
 
     @Override
     public boolean validate(Client client) {
-        return client != null && client.getAge() >= MINIMUM_AGE;
+        if (client != null && client.getAge() >= MINIMUM_AGE) {
+            return true;
+        }
+
+        throw new IllegalArgumentException("This is not a valid age!");
     }
 
 }

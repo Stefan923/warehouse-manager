@@ -8,7 +8,11 @@ public class ProductPriceValidator implements Validator<Product> {
 
     @Override
     public boolean validate(Product product) {
-        return product != null && product.getPrice() >= MINIMUM_PRICE;
+        if (product != null && product.getPrice() >= MINIMUM_PRICE) {
+            return true;
+        }
+
+        throw new IllegalArgumentException("This is not a valid price!");
     }
 
 }

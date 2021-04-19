@@ -10,7 +10,11 @@ public class ClientEmailValidator implements Validator<Client> {
 
     @Override
     public boolean validate(Client client) {
-        return client != null && EMAIL_PATTERN.matcher(client.getEmail()).matches();
+        if (client != null && EMAIL_PATTERN.matcher(client.getEmail()).matches()) {
+            return true;
+        }
+
+        throw new IllegalArgumentException("This is not a valid email!");
     }
 
 }
