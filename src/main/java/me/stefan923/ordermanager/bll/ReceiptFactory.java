@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class ReceiptFactory {
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu_MM_dd__HH_mm_ss");
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu_MM_dd__HH_mm_ss_SSS");
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
     private static final ReceiptFactory singleInstance = new ReceiptFactory();
 
@@ -41,7 +41,6 @@ public class ReceiptFactory {
 
     private Phrase convertReceiptDataToPhrase(Order order, Client client, Product product) {
         return new Phrase(
-                "Order ID: " + order.getId() + "\n" +
                 "Client Name: " + client.getName() + "\n" +
                 "Client Email: " + client.getEmail() + "\n" +
                 "Client Address: " + client.getAddress() + "\n" +
