@@ -22,7 +22,6 @@ import me.stefan923.ordermanager.presentation.panels.product.ShowProductsPanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 
 public class Controller {
 
@@ -244,7 +243,7 @@ public class Controller {
                     }
 
                     product.setStock(product.getStock() - quantity);
-                    orderBLL.insert(new Order(client.getId(), product.getId(), quantity));
+                    orderBLL.insert(new Order(client.getId(), product.getId(), quantity), client, product);
                     productBLL.update(product);
 
                     showOrdersPanel.updateOrdersTable(orderBLL.findAll());

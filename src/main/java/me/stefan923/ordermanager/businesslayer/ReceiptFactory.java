@@ -9,13 +9,15 @@ import me.stefan923.ordermanager.model.Product;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReceiptFactory {
 
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu_MM_dd__HH_mm_ss");
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
-
     private static final ReceiptFactory singleInstance = new ReceiptFactory();
 
     public static ReceiptFactory getInstance() {
@@ -25,26 +27,27 @@ public class ReceiptFactory {
     public void createReceipt(Order order, Client client, Product product) {
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("Receipt_" + order.getId() + ".pdf"));
+            String time = LocalDateTime.now().format(dateFormatter);
+            PdfWriter.getInstance(document, new FileOutputStream("Receipt_" + time + ".pdf"));
 
             document.open();
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-            Chunk chunk = new Chunk(convertReceiptDataToString(order, client, product), font);
-
-            document.add(chunk);
+            document.add(convertReceiptDataToPhrase(order, client, product));
             document.close();
+
         } catch (DocumentException | FileNotFoundException e) {
             LOGGER.log(Level.WARNING, "ReceiptFactory:createReceipt " + e.getMessage());
         }
     }
 
-    private String convertReceiptDataToString(Order order, Client client, Product product) {
-        return "Order ID: " + order.getId() + "\n" +
+    private Phrase convertReceiptDataToPhrase(Order order, Client client, Product product) {
+        return new Phrase(
+                "Order ID: " + order.getId() + "\n" +
                 "Client Name: " + client.getName() + "\n" +
                 "Client Email: " + client.getEmail() + "\n" +
                 "Client Address: " + client.getAddress() + "\n" +
                 "Product Name: " + product.getName() + "\n" +
-                "Quantity: " + product.getName();
+                "Quantity: " + product.getName()
+        );
     }
 
 }
