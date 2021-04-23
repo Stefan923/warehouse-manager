@@ -45,7 +45,8 @@ public class ReceiptFactory {
                 "Client Email: " + client.getEmail() + "\n" +
                 "Client Address: " + client.getAddress() + "\n" +
                 "Product Name: " + product.getName() + "\n" +
-                "Quantity: " + product.getName()
+                "Quantity: " + order.getQuantity() + "\n" +
+                "Price: " + (product.getPrice() * order.getQuantity()) + "\n"
         );
     }
 
