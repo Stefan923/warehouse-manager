@@ -8,8 +8,9 @@ import java.util.NoSuchElementException;
 
 public abstract class AbstractBLL<T> {
 
+    protected final AbstractDAO<T> dao;
+
     private final List<Validator<T>> validators;
-    private AbstractDAO<T> dao;
 
     public AbstractBLL(List<Validator<T>> validators, AbstractDAO<T> dao) {
         this.validators = validators;
@@ -25,10 +26,12 @@ public abstract class AbstractBLL<T> {
     }
 
     public T insert(T client) {
+        validators.forEach(validator -> validator.validate(client));
         return dao.insert(client);
     }
 
     public T update(T client) {
+        validators.forEach(validator -> validator.validate(client));
         return dao.update(client);
     }
 

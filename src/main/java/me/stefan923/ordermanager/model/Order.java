@@ -2,19 +2,25 @@ package me.stefan923.ordermanager.model;
 
 public class Order {
 
-    private final int id;
+    private int id;
     private int clientId;
     private int productId;
     private int quantity;
 
-    public Order(int id, int clientId, int productId, int quantity) {
-        this.id = id;
+    public Order() { }
+
+    public Order(int clientId, int productId, int quantity) {
+        this.clientId = clientId;
         this.productId = productId;
         this.quantity = quantity;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getClientId() {
@@ -39,6 +45,16 @@ public class Order {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                '}';
     }
 
 }

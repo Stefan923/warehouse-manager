@@ -17,7 +17,7 @@ public abstract class AbstractDAO<T> {
 
      protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
 
-     private final Class<T> type;
+     protected final Class<T> type;
 
      public AbstractDAO(Class<T> type) {
           this.type = type;
@@ -120,15 +120,16 @@ public abstract class AbstractDAO<T> {
           return false;
      }
 
-     private List<T> createObjects(ResultSet resultSet) {
+     protected List<T> createObjects(ResultSet resultSet) {
           List<T> createdObjects = new ArrayList<>();
-          Constructor[] constructors = type.getDeclaredConstructors();
-          Constructor constructor = null;
+          Constructor<?>[] constructors = type.getDeclaredConstructors();
+          Constructor<?> constructor = null;
 
-          for (Constructor item : constructors) {
+          for (Constructor<?> item : constructors) {
                constructor = item;
-               if (constructor.getGenericParameterTypes().length == 0)
+               if (constructor.getGenericParameterTypes().length == 0) {
                     break;
+               }
           }
 
           try {
@@ -157,9 +158,10 @@ public abstract class AbstractDAO<T> {
      }
 
      private String getFieldValuesAsString(T t) {
-          return Arrays.stream(getClass().getDeclaredFields())
+          return Arrays.stream(type.getDeclaredFields())
                   .map(field -> {
                        try {
+                            field.setAccessible(true);
                             return String.valueOf(field.get(t));
                        } catch (IllegalAccessException e) {
                             e.printStackTrace();
@@ -169,12 +171,16 @@ public abstract class AbstractDAO<T> {
      }
 
      private String getFieldValueAsString(T t, String fieldName) {
-          Optional<Field> field = Arrays.stream(getClass().getDeclaredFields())
+          Optional<Field> optionalField = Arrays.stream(type.getDeclaredFields())
                   .filter(tempField -> tempField.getName().equalsIgnoreCase(fieldName))
                   .findFirst();
 
           try {
-               return field.isPresent() ? String.valueOf(field.get().get(t)) : "";
+               if (optionalField.isPresent()) {
+                    Field field = optionalField.get();
+                    field.setAccessible(true);
+                    return String.valueOf(field.get(t));
+               }
           } catch (IllegalAccessException e) {
                e.printStackTrace();
           }
@@ -183,12 +189,13 @@ public abstract class AbstractDAO<T> {
      }
 
      private String getFieldsAndTheirValuesAsString(T t, String... ignoredFields) {
-          return Arrays.stream(getClass().getDeclaredFields())
+          return Arrays.stream(type.getDeclaredFields())
                   .filter(field -> Arrays.stream(ignoredFields)
                           .noneMatch(ignoredField -> ignoredField.equalsIgnoreCase(field.getName())))
                   .map(field -> {
                        try {
-                            return field.get(t) + " = '" + field.getName() + "'";
+                            field.setAccessible(true);
+                            return field.getName() + " = '" + field.get(t) + "'";
                        } catch (IllegalAccessException e) {
                             e.printStackTrace();
                        }

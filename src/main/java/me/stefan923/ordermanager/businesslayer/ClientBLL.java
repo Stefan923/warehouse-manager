@@ -9,8 +9,15 @@ import java.util.List;
 
 public class ClientBLL extends AbstractBLL<Client> {
 
+    private final ClientDAO clientDAO;
+
     public ClientBLL() {
         super(List.of(new ClientEmailValidator(), new ClientAgeValidator()), new ClientDAO());
+        clientDAO = (ClientDAO) dao;
+    }
+
+    public List<Client> findByName(String name) {
+        return clientDAO.findByName(name);
     }
 
 }

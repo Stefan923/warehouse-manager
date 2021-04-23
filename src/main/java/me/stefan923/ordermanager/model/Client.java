@@ -10,8 +10,7 @@ public class Client {
 
     public Client() { }
 
-    public Client(int id, String name, String address, String email, int age) {
-        this.id = id;
+    public Client(String name, String address, String email, int age) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -57,4 +56,16 @@ public class Client {
     public void setAge(int age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
 }
