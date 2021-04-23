@@ -20,3 +20,23 @@ INSERT INTO `Product` (`name`, `price`, `stock`) VALUES
 	('Bread', 4, 150),
 	('Bottle of milk', 15, 60),
 	('Another product', 75, 10);
+
+-- -----------------------------------------------------------------
+--                              Triggers
+-- -----------------------------------------------------------------
+
+DROP TRIGGER IF EXISTS `ON_PRODUCT_DELETE`;
+DELIMITER //
+CREATE TRIGGER `ON_CLIENT_DELETE` BEFORE DELETE ON `Client` FOR EACH ROW
+BEGIN
+	DELETE FROM `Order` WHERE `clientId` = OLD.`id`;
+END;
+// DELIMITER ;
+
+DROP TRIGGER IF EXISTS `ON_PRODUCT_DELETE`;
+DELIMITER //
+CREATE TRIGGER `ON_PRODUCT_DELETE` BEFORE DELETE ON `Product` FOR EACH ROW
+BEGIN
+	DELETE FROM `Order` WHERE `productId` = OLD.`id`;
+END;
+// DELIMITER ;

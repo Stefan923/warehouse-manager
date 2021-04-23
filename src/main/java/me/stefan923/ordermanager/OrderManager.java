@@ -1,8 +1,8 @@
 package me.stefan923.ordermanager;
 
-import me.stefan923.ordermanager.businesslayer.ClientBLL;
-import me.stefan923.ordermanager.businesslayer.OrderBLL;
-import me.stefan923.ordermanager.businesslayer.ProductBLL;
+import me.stefan923.ordermanager.bll.ClientBLL;
+import me.stefan923.ordermanager.bll.OrderBLL;
+import me.stefan923.ordermanager.bll.ProductBLL;
 import me.stefan923.ordermanager.presentation.Controller;
 import me.stefan923.ordermanager.presentation.View;
 
