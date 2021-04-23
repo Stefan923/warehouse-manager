@@ -17,6 +17,12 @@ public class ClientDAO extends AbstractDAO<Client> {
         super(Client.class);
     }
 
+    /**
+     * Returns the data associated with a class type (Client) and a given name.
+     *
+     * @param name - the identifier of the element whose data is to be retrieved.
+     * @return a list of objects of type Client.
+     */
     public List<Client> findByName(String name) {
         String query = SQLStatemets.SELECT_ALL_LIKE_FIELD
                 .replace("%table%", type.getSimpleName())

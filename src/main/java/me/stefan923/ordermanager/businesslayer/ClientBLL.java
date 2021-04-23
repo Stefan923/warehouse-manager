@@ -16,6 +16,12 @@ public class ClientBLL extends AbstractBLL<Client> {
         clientDAO = (ClientDAO) dao;
     }
 
+    /**
+     * Returns the data associated with a class type (Client) and a given name.
+     *
+     * @param name - the identifier of the element whose data is to be retrieved.
+     * @return a list of objects of type Client.
+     */
     public List<Client> findByName(String name) {
         return clientDAO.findByName(name);
     }
