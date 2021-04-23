@@ -24,6 +24,9 @@ public class ReceiptFactory {
         return singleInstance;
     }
 
+    /**
+     * Creates a receipt for a given order and saves it as a PDF file.
+     */
     public void createReceipt(Order order, Client client, Product product) {
         try {
             Document document = new Document();
