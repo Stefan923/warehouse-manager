@@ -1,4 +1,4 @@
-package me.stefan923.ordermanager.businesslayer.validator;
+package me.stefan923.ordermanager.bll.validator;
 
 public interface Validator<E> {
 

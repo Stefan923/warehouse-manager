@@ -1,6 +1,6 @@
-package me.stefan923.ordermanager.businesslayer;
+package me.stefan923.ordermanager.bll;
 
-import me.stefan923.ordermanager.businesslayer.validator.Validator;
+import me.stefan923.ordermanager.bll.validator.Validator;
 import me.stefan923.ordermanager.dao.AbstractDAO;
 
 import java.util.List;

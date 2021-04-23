@@ -1,4 +1,4 @@
-package me.stefan923.ordermanager.businesslayer;
+package me.stefan923.ordermanager.bll;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;

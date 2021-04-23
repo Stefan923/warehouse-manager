@@ -1,7 +1,7 @@
-package me.stefan923.ordermanager.businesslayer;
+package me.stefan923.ordermanager.bll;
 
-import me.stefan923.ordermanager.businesslayer.validator.ClientAgeValidator;
-import me.stefan923.ordermanager.businesslayer.validator.ClientEmailValidator;
+import me.stefan923.ordermanager.bll.validator.ClientAgeValidator;
+import me.stefan923.ordermanager.bll.validator.ClientEmailValidator;
 import me.stefan923.ordermanager.dao.ClientDAO;
 import me.stefan923.ordermanager.model.Client;
 

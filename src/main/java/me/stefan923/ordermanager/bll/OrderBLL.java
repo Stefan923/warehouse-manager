@@ -1,6 +1,6 @@
-package me.stefan923.ordermanager.businesslayer;
+package me.stefan923.ordermanager.bll;
 
-import me.stefan923.ordermanager.businesslayer.validator.OrderQuantityValidator;
+import me.stefan923.ordermanager.bll.validator.OrderQuantityValidator;
 import me.stefan923.ordermanager.dao.OrderDAO;
 import me.stefan923.ordermanager.model.Client;
 import me.stefan923.ordermanager.model.Order;
