@@ -25,14 +25,14 @@ public abstract class AbstractBLL<T> {
         return dao.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public T insert(T client) {
-        validators.forEach(validator -> validator.validate(client));
-        return dao.insert(client);
+    public T insert(T t) {
+        validators.forEach(validator -> validator.validate(t));
+        return dao.insert(t);
     }
 
-    public T update(T client) {
-        validators.forEach(validator -> validator.validate(client));
-        return dao.update(client);
+    public T update(T t) {
+        validators.forEach(validator -> validator.validate(t));
+        return dao.update(t);
     }
 
     public boolean delete(int id) {
